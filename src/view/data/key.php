@@ -1,5 +1,8 @@
+<?php
+use App\Library\App;
+?>
 <div class="breadcrumbs">
-    <a href="/">Home</a> > <a href="/data/?server=<?= htmlspecialchars($requestServer, ENT_QUOTES) ?>">Data</a> > <?= htmlspecialchars($key) ?>
+    <a href="<?php echo App::getInstance()->rootPath(); ?>/">Home</a> > <a href="<?php echo App::getInstance()->rootPath(); ?>/data/?server=<?= htmlspecialchars($requestServer, ENT_QUOTES) ?>">Data</a> > <?= htmlspecialchars($key) ?>
 </div>
 
 <?php if (isset($data)) : ?>

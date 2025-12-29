@@ -25,7 +25,7 @@ namespace App\Library;
 class App
 {
     /**
-     * @var null Singleton
+     * @var App Singleton
      */
     protected static $_instance = null;
 
@@ -252,5 +252,18 @@ class App
             }
         }
         return true;
+    }
+
+    /**
+     * Return the root path, blank by default.
+     *
+     * This is the root URL path of the application. By default it is the home directory.
+     *
+     * @return string
+     */
+    public function rootPath(): string
+    {
+		return $this->config['rootPath'];
+        return $this->get('rootPath') || '';
     }
 }

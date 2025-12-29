@@ -1,4 +1,7 @@
-<?php if (isset($keys)) : ?>
+<?php
+use App\Library\App;
+
+if (isset($keys)) : ?>
     <table border="1">
         <tr>
             <th>Key</th>
@@ -7,7 +10,7 @@
         </tr>
         <?php foreach ($keys as $key) : ?>
             <tr>
-                <td><a href="/key?name=<?= htmlspecialchars($key['name'], ENT_QUOTES) ?>&server=<?= htmlspecialchars($requestServer, ENT_QUOTES) ?>"><?= htmlspecialchars($key['name']) ?></a></td>
+                <td><a href="<?php echo App::getInstance()->rootPath(); ?>/key?name=<?= htmlspecialchars($key['name'], ENT_QUOTES) ?>&server=<?= htmlspecialchars($requestServer, ENT_QUOTES) ?>"><?= htmlspecialchars($key['name']) ?></a></td>
                 <td align="right"><?= $key['size'] ?></td>
                 <td>
                     <?php if ($key['ttl']) : ?>
