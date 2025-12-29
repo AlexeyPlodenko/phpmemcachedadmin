@@ -264,6 +264,5 @@ class App
     public function rootPath(): string
     {
 		return $this->config['rootPath'];
-        return $this->get('rootPath') || '';
     }
 }
