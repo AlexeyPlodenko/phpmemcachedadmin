@@ -94,7 +94,9 @@ class App
         if ($this->exists()) {
             $configFilePath = $this->configFilePath();
             $userConfig = require($configFilePath);
-            $this->config = array_merge($this->config, $userConfig);
+            if (is_array($userConfig)) {
+                $this->config = array_merge($this->config, $userConfig);
+            }
         }
     }
 
@@ -263,6 +265,6 @@ class App
      */
     public function rootPath(): string
     {
-		return $this->config['rootPath'];
+				return $this->config['rootPath'];
     }
 }
