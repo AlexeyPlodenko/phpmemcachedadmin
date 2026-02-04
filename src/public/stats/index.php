@@ -102,6 +102,7 @@ switch ($request) {
             # Asking server for stats
             $statsResp = Factory::instance('stats_api')->stats($server['hostname'], $server['port']);
             $actual[$name] = $statsResp ?: [];
+            $actual[$name]['_time_'] = microtime(true);
 
             # Calculating query time length
             $actual[$name]['query_time'] = max((microtime(true) - $time) * 1000, 1);
@@ -114,6 +115,16 @@ switch ($request) {
 
             # Diff between old and new dump
             $stats[$server] = Analysis::diff($previous[$server] ?: [], $actual[$server]);
+
+            # Calculate real uptime (time between requests)
+            if (isset($previous[$server]['_time_'])) {
+                $stats[$server]['uptime'] = $stats[$server]['_time_'];
+            } elseif (isset($previous[$server]['time'], $actual[$server]['time'])) {
+                $timeDiff = $actual[$server]['time'] - $previous[$server]['time'];
+                if ($timeDiff > 0) {
+                    $stats[$server]['uptime'] = $timeDiff;
+                }
+            }
         }
 
         # Making stats for each server
@@ -145,6 +156,7 @@ switch ($request) {
         $stats = [];
         foreach ($_ini->cluster($cluster) as $name => $server) {
             $stats[$name] = Factory::instance('stats_api')->stats($server['hostname'], $server['port']);
+            $stats[$name]['_time_'] = microtime(true);
         }
 
         # Saving first stats dump
