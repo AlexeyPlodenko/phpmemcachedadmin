@@ -55,11 +55,11 @@ switch ($request) {
         $stats = Factory::instance('stats_api')->stats($server['hostname'], $server['port']);
         $infinite = (isset($stats['time'], $stats['uptime'])) ? ($stats['time'] - $stats['uptime']) : 0;
 
-        # Items are well formed
+        # Items are well-formed
         if ($items !== false) {
             # Showing items
             require __DIR__ .'/../view/stats/items.php';
-        }         # Items are not well formed
+        }         # Items are not well-formed
         else {
             require __DIR__ .'/../view/stats/error.php';
         }
@@ -77,12 +77,12 @@ switch ($request) {
             $slabs = Factory::instance('slabs_api')->slabs($server['hostname'], $server['port']);
         }
 
-        # Slabs are well formed
+        # Slabs are well-formed
         if ($slabs !== false) {
             # Analysis
             $slabs = Analysis::slabs($slabs);
             require __DIR__ .'/../view/stats/slabs.php';
-        }         # Slabs are not well formed
+        }         # Slabs are not well-formed
         else {
             require __DIR__ .'/../view/stats/error.php';
         }
