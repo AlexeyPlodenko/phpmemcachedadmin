@@ -1,22 +1,16 @@
-<?php
+<?php 
     $app = \App\Library\App::getInstance();
-    $vite = \App\Library\Vite::getInstance(
-        __DIR__ . '/../public/build/.vite/manifest.json',
-        $app->rootPath() .'/build/'
-    );
 ?>
-
-<?= '<?xml version="1.0" encoding="UTF-8"?>' ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>PHPMemcachedAdmin<?= APP_VERSION !== '%%VERSION%%' ? ' '. APP_VERSION : '' ?></title>
-    <link rel="stylesheet" type="text/css" href="<?= $vite->getPath('assets/style.css') ?>">
+    <link rel="stylesheet" type="text/css" href="<?= $app->rootPath() ?>/assets/style.css?mtime=<?= filemtime(__DIR__ .'/../public/assets/style.css') ?>">
     <script>
         const basePath = '<?= $app->rootPath() ?>';
     </script>
     <script src="<?= $app->rootPath() ?>/assets/highcharts-5.0.9.js"></script>
-    <script type="module" src="<?= $vite->getPath('assets/script.js') ?>"></script>
+    <script type="module" src="<?= $app->rootPath() ?>/assets/script.js?mtime=<?= filemtime(__DIR__ .'/../public/assets/script.js') ?>"></script>
 
     <link rel="apple-touch-icon" sizes="180x180" href="<?= $app->rootPath() ?>/assets/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="<?= $app->rootPath() ?>/assets/favicon/favicon-32x32.png">

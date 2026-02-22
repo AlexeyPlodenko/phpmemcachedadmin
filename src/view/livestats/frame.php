@@ -5,13 +5,15 @@ use App\Library\Html\Components;
 <script type="text/javascript">
     const timeout = <?php echo $refresh_rate * 1000; ?>;
     const url = '<?php echo App::getInstance()->rootPath(); ?>/stats?request_command=live_stats&cluster=<?php echo urlencode($cluster); ?>';
-    
+
     function loadStats() {
         ajax(url, 'stats');
         setTimeout(loadStats, timeout);
     }
 
-    loadStats();
+    document.addEventListener("DOMContentLoaded", function() {
+        loadStats();
+    });
 </script>
 
 <div style="float:left;">
