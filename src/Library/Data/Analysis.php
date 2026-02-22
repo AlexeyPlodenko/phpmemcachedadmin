@@ -241,19 +241,47 @@ class Analysis
      */
     public static function uptime(int $uptime, bool $compact = false): string
     {
-        if ($uptime > 0) {
-            $days = floor($uptime / 60 / 60 / 24);
-            $hours = floor($uptime / 60 / 60);
-            $mins = floor($uptime / 60);
-            if (($days + $hours + $mins) == 0) {
-                return ' less than 1 min';
-            }
-            if ($compact) {
-                return $days . 'd ' . $hours . 'h ' . $mins . 'm';
-            }
-            return $days . ' day' . (($days > 1) ? 's' : '') . ' ' . $hours . ' hr' . (($hours > 1) ? 's' : '') . ' ' . $mins . ' min' . (($mins > 1) ? 's' : '');
+        if ($uptime <= 0) {
+            return ' - ';
         }
-        return ' - ';
+
+        $days = floor($uptime / 86400);
+        $hours = floor(($uptime % 86400) / 3600);
+        $mins = floor(($uptime % 3600) / 60);
+        $secs = $uptime % 60;
+
+        if ($compact) {
+            $parts = [];
+            if ($days > 0) {
+                $parts[] = $days . 'd';
+            }
+            if ($hours > 0) {
+                $parts[] = $hours . 'h';
+            }
+            if ($mins > 0) {
+                $parts[] = $mins . 'm';
+            }
+            if (empty($parts)) {
+                return $secs . 's';
+            }
+            return implode(' ', $parts);
+        }
+
+        $parts = [];
+        if ($days > 0) {
+            $parts[] = $days . ' day' . ($days > 1 ? 's' : '');
+        }
+        if ($hours > 0) {
+            $parts[] = $hours . ' hr' . ($hours > 1 ? 's' : '');
+        }
+        if ($mins > 0) {
+            $parts[] = $mins . ' min' . ($mins > 1 ? 's' : '');
+        }
+        if (empty($parts)) {
+            return $secs . ' sec' . ($secs > 1 ? 's' : '');
+        }
+
+        return implode(' ', $parts);
     }
 
     /**
