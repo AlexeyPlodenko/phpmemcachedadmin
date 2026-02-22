@@ -16,17 +16,6 @@ jobs:
               with:
                   fetch-depth: 0 # Fetch all history so we can push back to the branch
 
-            - name: Setup Node.js
-              uses: actions/setup-node@v4
-              with:
-                node-version: '20'
-
-            - name: Install NPM dependencies
-              run: npm ci
-
-            - name: Build assets
-              run: npm run build
-
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
               with:
