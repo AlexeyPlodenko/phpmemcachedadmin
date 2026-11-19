@@ -246,6 +246,16 @@ class Server extends AbstractMemcached
                 $slabs['classes'][$key[0]] = $key[0];
             }
 
+            # Executing command : items stats, which holds each slab's mem_requested, evicted and other item counters.
+            # A server with no items returns nothing here, which still leaves valid slabs stats.
+            $result = $this->exec('stats items', $server, $port);
+            if ($result) {
+                foreach ($this->parse($result) as $key => $value) {
+                    $key = explode(':', $key);
+                    $slabs[$key[1]]['items:' . $key[2]] = $value;
+                }
+            }
+
             return $slabs;
         }
         return false;
