@@ -252,7 +252,9 @@ class Server extends AbstractMemcached
             if ($result) {
                 foreach ($this->parse($result) as $key => $value) {
                     $key = explode(':', $key);
-                    $slabs[$key[1]]['items:' . $key[2]] = $value;
+                    if (isset($key[1], $key[2], $slabs[$key[1]])) {
+                        $slabs[$key[1]]['items:' . $key[2]] = $value;
+                    }
                 }
             }
 
