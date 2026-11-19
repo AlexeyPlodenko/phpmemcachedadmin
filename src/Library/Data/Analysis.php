@@ -55,8 +55,12 @@ class Analysis
         foreach ($stats as $key => $value) {
             if (! isset($array[$key]) || in_array($key, self::$_non_additive)) {
                 $array[$key] = $value;
-            } else {
+            } elseif (is_numeric($array[$key]) && is_numeric($value)) {
                 $array[$key] += $value;
+            } else {
+                // A text stat that isn't in $_non_additive, such as slab_reassign_last_busy_status ("none")
+                // in memcached 1.6.42, can't be summed, so keep the last server's value.
+                $array[$key] = $value;
             }
         }
         return $array;
