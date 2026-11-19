@@ -114,7 +114,7 @@ switch ($request) {
             $server = $name;
 
             # Diff between old and new dump
-            $stats[$server] = Analysis::diff($previous[$server] ?: [], $actual[$server]);
+            $stats[$server] = Analysis::diff($previous[$server] ?? [], $actual[$server]);
 
             # Calculate real uptime (time between requests)
             if (isset($previous[$server]['_time_'])) {
