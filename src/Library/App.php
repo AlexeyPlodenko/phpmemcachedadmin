@@ -85,7 +85,7 @@ class App
      *
      * @return Void
      */
-    protected function __construct(string $configFilePath = null)
+    protected function __construct(?string $configFilePath = null)
     {
         if ($configFilePath) {
             $this->configFilePath = $configFilePath;

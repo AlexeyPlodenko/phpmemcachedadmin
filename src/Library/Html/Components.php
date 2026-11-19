@@ -135,7 +135,7 @@ class Components
      *
      * @return string
      */
-    public static function apiList(string $iniAPI = '', string $id = null): string
+    public static function apiList(string $iniAPI = '', ?string $id = null): string
     {
         return '<select id="' . htmlspecialchars($id, ENT_QUOTES) . '" name="' . htmlspecialchars($id, ENT_QUOTES) . '">
                 <option value="Server"'. self::selected('Server', $iniAPI) .'>Server API</option>
